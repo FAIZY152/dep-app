@@ -29,7 +29,7 @@ const Login = () => {
       const res = await login(input);
       if (res) {
         toast.success("Login Successfully");
-        navigate(, { replace: true });
+        navigate("/", { replace: true });
       }
     } catch (error) {
       const er = error as Error;

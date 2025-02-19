@@ -2,45 +2,16 @@ import { create, StateCreator } from "zustand";
 import axios from "axios";
 import { toast } from "sonner";
 import { createJSONStorage, persist, PersistOptions } from "zustand/middleware";
+import { Order, OrderStore } from "@/types/OrderTypes";
 
-export interface OrderItem {
-  menuId: string;
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-}
-
-// Define the structure of the order
-export interface Order {
-  _id: string;
-  user: string; // User ID
-  resturent: string; // Restaurant ID
-  cartItems: OrderItem[];
-  totalPrice: number;
-  status: "pending" | "confirmed" | "preparing" | "outofdelivery" | "delivered";
-  createdAt: string; // Date ISO String
-  updatedAt: string; // Date ISO String
-}
-
-// Define the response structure from the API
-
-// Define the structure of the order store
-export interface OrderStore {
-  loading: boolean;
-  order: Order[] | any;
-  createOrder: (orderData: any) => Promise<void>;
-  SingleOrder: (userId: string) => Promise<void>;
-  getAllOrders: () => Promise<void>;
-  updateOrderStatus: (orderId: string, status: string) => Promise<void>;
-}
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 type MyPersist = (
   config: StateCreator<OrderStore>,
   options: PersistOptions<OrderStore>
 ) => StateCreator<OrderStore>;
 
-const API_ENDPOINT = "http://localhost:5401/api/v1/order";
+const API_ENDPOINT = `${API_URL}/api/v1/order`;
 
 const UseOrderStore = create<OrderStore>(
   (persist as MyPersist)(
