@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "nodemon server/index.ts",
+    "dev": "nodemon src/index.ts",
     "build": "npm install && npm install --prefix front && npm run build --prefix front",
-    "start": "nodemon server/index.ts",
+    "start": "nodemon src/index.ts",
     "test": "cross-env NODE_ENV=test vitest"
   },
   "keywords": [],
