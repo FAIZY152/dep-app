@@ -1,4 +1,4 @@
-import { ArrowRight, User, UtensilsCrossed, X } from "lucide-react";
+import { ArrowRight, User, UtensilsCrossed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -15,13 +15,6 @@ const AuthOption = () => {
             height={40}
             className="h-10 w-auto rounded-lg"
           />
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-full text-pink-600 dark:text-pink-400 hover:bg-pink-100 dark:hover:bg-gray-700">
-            <X className="h-6 w-6" />
-            <span className="sr-only">Close</span>
-          </Button>
         </div>
       </header>
 
@@ -63,7 +56,7 @@ const AuthOption = () => {
         {/* Login Section */}
         <div className="mt-12 text-center space-y-4">
           <p className="text-gray-600 dark:text-gray-400">
-            Already have an account?
+            Already have an account? or Go to use Default Login Credentials
           </p>
           <div className="space-x-4">
             <Button
