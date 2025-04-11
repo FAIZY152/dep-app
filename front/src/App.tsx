@@ -18,16 +18,17 @@ import AddMenu from "./UI/admin/AddMenu";
 import AdminOrder from "./UI/admin/AdminOrder";
 import UserOrderPage from "./UI/pages/user/UserOrderPage";
 import { UserStore } from "./store/UserStroe";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useThemeStore } from "./store/UseThemeStore";
 import CaptainSignUp from "./UI/auth/admin/CaptainSignUp";
 import CaptainLogin from "./UI/auth/admin/CaptainLogin";
 import Auth from "./UI/pages/Auth";
-import WarmupScreen from "./UI/pages/utils/Warmup";
+
+import Loading from "./UI/pages/utils/Loading";
 
 function App() {
   // Protected Routes
-  const [isBackendReady, setIsBackendReady] = useState(false);
+
   const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
     const { isAuthentiacte } = UserStore();
     if (!isAuthentiacte) {
@@ -170,7 +171,7 @@ function App() {
       ],
     },
   ]);
-  const { CheckingAuth } = UserStore();
+  const { CheckingAuth, isCheckAuth } = UserStore();
   const { initializeTheme } = useThemeStore();
 
   useEffect(() => {
@@ -178,20 +179,21 @@ function App() {
       try {
         await fetch("https://your-backend.vercel.app/api/v1/auth/cors");
         setTimeout(() => {
-          setIsBackendReady(true);
           CheckingAuth();
           initializeTheme();
         }, 1000); // delay to ensure backend fully wakes up
       } catch (err) {
         console.error("Backend failed to wake", err);
-        setIsBackendReady(true); // even on fail, don't block app
+        // even on fail, don't block app
       }
     };
 
     wakeBackend();
   }, [CheckingAuth, initializeTheme]);
 
-  if (!isBackendReady) return <WarmupScreen />;
+  if (isCheckAuth) {
+    return <Loading />;
+  }
 
   return (
     <>
