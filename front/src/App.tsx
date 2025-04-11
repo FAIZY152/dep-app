@@ -192,6 +192,7 @@ function App() {
   }, [CheckingAuth, initializeTheme]);
 
   if (!isBackendReady) return <WarmupScreen />;
+
   return (
     <>
       <main>
