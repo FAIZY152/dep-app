@@ -18,15 +18,16 @@ import AddMenu from "./UI/admin/AddMenu";
 import AdminOrder from "./UI/admin/AdminOrder";
 import UserOrderPage from "./UI/pages/user/UserOrderPage";
 import { UserStore } from "./store/UserStroe";
-import { useEffect } from "react";
-import Loading from "./UI/pages/utils/Loading";
+import { useEffect, useState } from "react";
 import { useThemeStore } from "./store/UseThemeStore";
 import CaptainSignUp from "./UI/auth/admin/CaptainSignUp";
 import CaptainLogin from "./UI/auth/admin/CaptainLogin";
 import Auth from "./UI/pages/Auth";
+import WarmupScreen from "./UI/pages/utils/Warmup";
 
 function App() {
   // Protected Routes
+  const [isBackendReady, setIsBackendReady] = useState(false);
   const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
     const { isAuthentiacte } = UserStore();
     if (!isAuthentiacte) {
@@ -169,27 +170,28 @@ function App() {
       ],
     },
   ]);
-  const { CheckingAuth, isCheckAuth } = UserStore();
+  const { CheckingAuth } = UserStore();
   const { initializeTheme } = useThemeStore();
 
   useEffect(() => {
-    const wakeUpBackend = async () => {
+    const wakeBackend = async () => {
       try {
-        await fetch("https://backapp-livid.vercel.app/api/v1/auth/cors");
-        console.log("Backend is awake");
-      } catch (error) {
-        console.error("Backend wake-up failed", error);
+        await fetch("https://your-backend.vercel.app/api/v1/auth/cors");
+        setTimeout(() => {
+          setIsBackendReady(true);
+          CheckingAuth();
+          initializeTheme();
+        }, 1000); // delay to ensure backend fully wakes up
+      } catch (err) {
+        console.error("Backend failed to wake", err);
+        setIsBackendReady(true); // even on fail, don't block app
       }
     };
 
-    wakeUpBackend(); // Wake up backend first
-    CheckingAuth(); // Then check auth
-    initializeTheme(); // Then initialize theme
-  }, [CheckingAuth]);
+    wakeBackend();
+  }, [CheckingAuth, initializeTheme]);
 
-  if (isCheckAuth) {
-    return <Loading />;
-  }
+  if (!isBackendReady) return <WarmupScreen />;
   return (
     <>
       <main>
