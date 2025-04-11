@@ -175,22 +175,19 @@ function App() {
   const { initializeTheme } = useThemeStore();
 
   useEffect(() => {
-    const wakeBackend = async () => {
+    const wakeUpBackend = async () => {
       try {
-        await fetch("https://your-backend.vercel.app/api/v1/auth/cors");
-        setTimeout(() => {
-          CheckingAuth();
-          initializeTheme();
-        }, 1000); // delay to ensure backend fully wakes up
-      } catch (err) {
-        console.error("Backend failed to wake", err);
-        // even on fail, don't block app
+        await fetch("https://backapp-livid.vercel.app/api/v1/auth/cors");
+        console.log("Backend is awake");
+      } catch (error) {
+        console.error("Backend wake-up failed", error);
       }
     };
 
-    wakeBackend();
-    // window.location.reload();
-  }, [CheckingAuth, initializeTheme]);
+    wakeUpBackend(); // Wake up backend first
+    CheckingAuth(); // Then check auth
+    initializeTheme(); // Then initialize theme
+  }, []);
 
   if (isCheckAuth) {
     return <Loading />;
