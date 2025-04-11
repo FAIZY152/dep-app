@@ -185,7 +185,7 @@ function App() {
     wakeUpBackend(); // Wake up backend first
     CheckingAuth(); // Then check auth
     initializeTheme(); // Then initialize theme
-  }, []);
+  }, [CheckingAuth]);
 
   if (isCheckAuth) {
     return <Loading />;
