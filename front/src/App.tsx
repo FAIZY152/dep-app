@@ -173,9 +173,19 @@ function App() {
   const { initializeTheme } = useThemeStore();
 
   useEffect(() => {
-    CheckingAuth();
-    initializeTheme();
-  }, [CheckingAuth]);
+    const wakeUpBackend = async () => {
+      try {
+        await fetch("https://backapp-livid.vercel.app/api/v1/auth/cors");
+        console.log("Backend is awake");
+      } catch (error) {
+        console.error("Backend wake-up failed", error);
+      }
+    };
+
+    wakeUpBackend(); // Wake up backend first
+    CheckingAuth(); // Then check auth
+    initializeTheme(); // Then initialize theme
+  }, []);
 
   if (isCheckAuth) {
     return <Loading />;

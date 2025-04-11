@@ -107,7 +107,6 @@ export const UserStore = create<UserState>()(
           const response = await axios.get(`${API_ENDPOINT}/check-auth`);
 
           if (response.data.success) {
-            toast.success("You are Authenticated");
             set({
               isAuthentiacte: true,
               user: response.data.user,
@@ -116,8 +115,8 @@ export const UserStore = create<UserState>()(
           }
         } catch (error: unknown) {
           const err = error as AxiosError<{ message: string }>;
-          toast.error("Authentication check failed");
-          console.error("Error in CheckingAuth:", err.message);
+          console.log(err);
+
           set({ isCheckAuth: false, isAuthentiacte: false });
         }
       },
