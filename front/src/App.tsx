@@ -189,6 +189,7 @@ function App() {
     };
 
     wakeBackend();
+    // window.location.reload();
   }, [CheckingAuth, initializeTheme]);
 
   if (isCheckAuth) {
