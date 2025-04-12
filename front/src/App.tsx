@@ -27,6 +27,7 @@ import Auth from "./UI/pages/Auth";
 import Loading from "./UI/pages/utils/Loading";
 
 function App() {
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
   // Protected Routes
 
   const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
@@ -177,17 +178,17 @@ function App() {
   useEffect(() => {
     const wakeUpBackend = async () => {
       try {
-        await fetch("https://backapp-livid.vercel.app/api/v1/auth/cors");
-        console.log("Backend is awake");
+        await fetch(`${API_URL}/api/status`);
+        console.log("🔥 Backend is warmed up");
       } catch (error) {
-        console.error("Backend wake-up failed", error);
+        console.error("❌ Backend wake-up failed", error);
       }
     };
 
-    wakeUpBackend(); // Wake up backend first
-    CheckingAuth(); // Then check auth
-    initializeTheme(); // Then initialize theme
-  }, [CheckingAuth, initializeTheme]);
+    wakeUpBackend(); // 🟢 Step 1: Wake backend
+    CheckingAuth(); // 🔐 Step 2: Check auth
+    initializeTheme(); // 🎨 Step 3: Init theme
+  }, [CheckingAuth, initializeTheme, API_URL]);
 
   if (isCheckAuth) {
     return <Loading />;
