@@ -16,12 +16,13 @@ const ViewMenu = () => {
   const { singleResturent, GetSingleResturent, loading } = useResturent();
 
   useEffect(() => {
-    if (params?.id) {
-      GetSingleResturent(params.id);
-    }
-  }, [params.id!]);
+    const paramsId = params.id!;
+    GetSingleResturent(paramsId);
+  }, [GetSingleResturent, params.id]);
 
   const navigate = useNavigate();
+
+  console.log(params.id);
 
   if (loading) {
     return (
