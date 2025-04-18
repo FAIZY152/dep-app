@@ -12,12 +12,16 @@ import { toast } from "sonner";
 
 const ViewMenu = () => {
   const { addToCart } = UseCartStore();
-  let params = useParams();
+  const params = useParams();
   const { singleResturent, GetSingleResturent, loading } = useResturent();
 
   useEffect(() => {
-    GetSingleResturent(params?.id!);
+    if (params?.id) {
+      GetSingleResturent(params.id);
+    }
   }, [params.id!]);
+
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -27,7 +31,6 @@ const ViewMenu = () => {
       </div>
     );
   }
-  const navigate = useNavigate();
 
   const addCart = async (menu: MenuItem) => {
     await addToCart(menu);
