@@ -98,6 +98,7 @@ const useResturent = create<ResturentTypes>()(
             `${API_ENDPOINT}/resturents/${resturentId}`
           );
           if (response.data.success) {
+            console.log(response.data.resturent);
             set({ singleResturent: response.data.resturent });
           } else {
             set({ singleResturent: null });
