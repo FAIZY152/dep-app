@@ -27,8 +27,6 @@ const AddResturents = () => {
     image: undefined,
   });
 
-  // Update form only when `resturent` is populated
-
   const ChangeInptHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
     setResturentForm({
@@ -86,6 +84,8 @@ const AddResturents = () => {
     };
     fetchData();
   }, []);
+
+  console.log("restaurent :", resturent);
 
   useEffect(() => {
     if (resturent) {
