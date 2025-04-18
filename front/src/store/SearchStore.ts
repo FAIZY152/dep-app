@@ -58,8 +58,7 @@ const SearchStore = create<SearchStoreState>()(
         set({ loading: true });
         const { mainSearch } = SearchStore.getState();
         try {
-          await new Promise((resolve) => setTimeout(resolve, 500)); // for show skeleton purpose
-          // Call the API for searching by restaurantName or city
+          await new Promise((resolve) => setTimeout(resolve, 500)); 
           const response = await axios.get(`${API_ENDPOINT}/search/location`, {
             params: { mainSearch },
           });

@@ -16,50 +16,13 @@ import NoResultsFound from "./utils/NotFoundResult";
 
 const SearchPage = () => {
   const { S_restaurants, loading } = SearchStore();
-  let { text } = useParams();
+  const { text } = useParams();
 
   // Search type
 
   return (
     <div className="max-w-7xl mx-auto  min-h-screen py-10 px-4">
       <div className="w-full flex justify-start items-starr gap-5">
-        {/* <div className=" w-[30%] flex flex-col gap-3  p-4 shadow-md bg-white">
-          <div className="py-3 md:py-5 px-4 mx-2 flex flex-col md:flex-row md:justify-between items-center">
-            <h1 className="text-base md:text-2xl font-extrabold text-gray-600">
-              Filter
-            </h1>
-            <button
-              type="button"
-              className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 font-medium md:text-sm text-[12px] md:px-5 px-3  md:py-2.5 py:2 mt-1 rounded text-center me-2 mb-2">
-              Reset
-            </button>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-              htmlFor="terms"
-              className="md:text-sm text-[12px] md:font-medium text-gray-600 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Biryani
-            </label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-              htmlFor="terms"
-              className="md:text-sm text-[12px] md:font-medium text-gray-600 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Chicken
-            </label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <label
-              htmlFor="terms"
-              className="md:text-sm text-[12px] md:font-medium text-gray-600 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Sweets
-            </label>
-          </div>
-        </div> */}
         <FilterPage />
 
         <div className="w-full">

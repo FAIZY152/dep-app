@@ -23,6 +23,7 @@ const ViewMenu = () => {
   const navigate = useNavigate();
 
   console.log(params.id);
+  console.log("single Restaurent", singleResturent);
 
   if (loading) {
     return (
